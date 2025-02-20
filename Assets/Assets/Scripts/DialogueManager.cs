@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class JohnMATESDialogue : MonoBehaviour
+public class DialogueManager : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public TextMeshProUGUI dialogueText;
+    public GameObject DialogueCue;
     public string[] dialogue;
     private int index = 0;
 
@@ -23,6 +24,13 @@ public class JohnMATESDialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (playerIsClose){
+            DialogueCue.SetActive(true);
+        }
+        else {
+            DialogueCue.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
         {
             if (!dialoguePanel.activeInHierarchy)
