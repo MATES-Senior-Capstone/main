@@ -1,2 +1,13 @@
 fileFormatVersion: 2
-guid: 5e2a5b5ff09490e46a6dfcf3ac9ddb98
+guid: a46201243332b274985231e2c522a4c1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - inkJSONAsset: {fileID: 11500000, guid: a46201243332b274985231e2c522a4c1, type: 3}
+  - buttonPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
