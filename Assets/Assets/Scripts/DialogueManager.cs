@@ -66,7 +66,10 @@ public class DialogueManager : MonoBehaviour
             choiceButton.onClick.AddListener(delegate {
                 OnClickChoiceButton(choice);
             });
-
+            foreach (Transform child in choiceButton.transform)
+             {
+        Destroy(child.gameObject);
+        }
         }
         Debug.Log("Total choices: " + story.currentChoices.Count);
     }
