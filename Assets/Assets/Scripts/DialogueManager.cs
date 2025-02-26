@@ -119,7 +119,7 @@ public class DialogueManager : MonoBehaviour
         {
             DialogueStart();
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) | !playerIsClose)
         {
             clearUI();
         }
