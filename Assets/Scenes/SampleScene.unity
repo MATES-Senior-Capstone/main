@@ -1057,7 +1057,7 @@ MonoBehaviour:
   DialogueCue: {fileID: 1378793930}
   Canvas: {fileID: 2066042472}
   playerIsClose: 0
-  inkJSONAsset: {fileID: 4900000, guid: dfd3bc14cfd959e48945b35b280b3443, type: 3}
+  inkJSONAsset: {fileID: 4900000, guid: a2059e7a4792b704cbd87ef78f80c462, type: 3}
   buttonPrefab: {fileID: 8055445522740199123, guid: cc858089c3ab54f43a570a53d976182c, type: 3}
 --- !u!1 &1176542078
 GameObject:
