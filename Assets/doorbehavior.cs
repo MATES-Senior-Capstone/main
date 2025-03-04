@@ -28,7 +28,7 @@ public class DoorTransition : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         // If the player leaves the door's range, set playerInRange to false
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("John Square"))
         {
             playerInRange = false;
         }
