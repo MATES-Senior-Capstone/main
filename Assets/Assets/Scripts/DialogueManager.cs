@@ -9,17 +9,16 @@ public class DialogueManager : MonoBehaviour
     public GameObject DialogueCue;
     public GameObject Canvas;
     public bool playerIsClose;
-    public TextAsset inkJSONAsset;
+    public TextAsset inkJSON1;
+    public TextAsset inkJSON2;
     private Story story;
     public Button buttonPrefab;
-
-    // Start is called before the first frame update
+    public Button ContinueButtonFab;
+    public Font ChosenFont;
     void DialogueStart()
     {
-        // Load the next story block
-        story = new Story(inkJSONAsset.text);
+        story = new Story(inkJSON1.text);
 
-        // Start the refresh cycle
         refresh();
 
     }
@@ -30,64 +29,99 @@ public class DialogueManager : MonoBehaviour
     //  – Iterate through any choices and create listeners on them
     void refresh()
     {
-        // Clear the UI
         clearUI();
 
-        // Create a new GameObject
+        CreateTextChunk();
+
+        CreateContinue();
+        
+        CreateChoices();
+    }
+
+    void CreateTextChunk()
+    {
+        // Create a new GameObject to hold text
         GameObject newGameObject = new GameObject("TextChunk");
-        // Set its transform to the Canvas (this)
         newGameObject.transform.SetParent(Canvas.transform, false);
 
-        // Add a new Text component to the new GameObject
         Text newTextObject = newGameObject.AddComponent<Text>();
-        // Set the fontSize larger
+        
         newTextObject.fontSize = 64;
-
-        newTextObject.GetComponent<Text> ().font = Resources.GetBuiltinResource(typeof(Font), "LegacyRuntime.ttf") as Font;
+        newTextObject.GetComponent<Text> ().font = ChosenFont;
 
         // Set the text from new story block
-        newTextObject.text = getNextStoryBlock();
-        Debug.Log("Story text: " + getNextStoryBlock());
-        // Load Arial from the built-in resources
-        
+        string storyText = getNextStoryBlock();
+        newTextObject.text = storyText;
+        Debug.Log("Story text: " + storyText);
+    }
 
+    void CreateContinue()
+    {
+        if(story.canContinue){
+            //Create a continue button from prefab
+            Button ContinueButton = Instantiate(ContinueButtonFab) as Button;
+            ContinueButton.transform.SetParent(Canvas.transform, false);
+            ContinueButton.onClick.AddListener(delegate {OnClickContinueButton();});
+        }
+        if(!story.canContinue && story.currentChoices.Count == 0){
+            //Prepares the exit button
+            Button ExitButton = Instantiate(ContinueButtonFab) as Button;
+            ExitButton.transform.SetParent(Canvas.transform, false);
+            ExitButton.onClick.AddListener(delegate {OnClickExitButton();});
+        }
+    }
+
+    void CreateChoices()
+    {
         foreach (Choice choice in story.currentChoices)
         {
             Debug.Log("Creating button for choice: " + choice.text);
+
+            //Creates a button from prefab
             Button choiceButton = Instantiate(buttonPrefab) as Button;
             choiceButton.transform.SetParent(Canvas.transform, false);
+        
+            //Destroys the TMP Text child that exists in all buttons
+            foreach (Transform child in choiceButton.transform)
+             {
+            Destroy(child.gameObject);
+            }
 
             // Gets the text from the button prefab
             Text choiceText = choiceButton.GetComponentInChildren<Text>();
             choiceText.text = choice.text;
             choiceText.fontSize = 64;
+            choiceText.font = ChosenFont;
 
-            // Set listener
-            choiceButton.onClick.AddListener(delegate {
-                OnClickChoiceButton(choice);
-            });
-            foreach (Transform child in choiceButton.transform)
-             {
-        Destroy(child.gameObject);
-        }
+            // Sets listener for choices
+            choiceButton.onClick.AddListener(delegate {OnClickChoiceButton(choice);});
+            
         }
         Debug.Log("Total choices: " + story.currentChoices.Count);
     }
-
-    // When we click the choice button, tell the story to choose that choice!
     void OnClickChoiceButton(Choice choice)
     {
         story.ChooseChoiceIndex(choice.index);
         story.Continue();
         refresh();
-
     }
 
-    // Clear out all of the UI, calling Destory() in reverse
+    void OnClickContinueButton()
+    {
+        if (story.canContinue)
+        {
+            refresh();
+        }
+    }
+
+    void OnClickExitButton()
+    {
+        clearUI();
+    }
     void clearUI()
     {
         int childCount = Canvas.transform.childCount;
-        for (int i = childCount - 1; i >= 0; i--)
+        for (int i = childCount-1; i >= 0; i--)
         {
             GameObject.Destroy(Canvas.transform.GetChild(i).gameObject);
         }
@@ -107,14 +141,14 @@ public class DialogueManager : MonoBehaviour
         return text;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (playerIsClose){
+        if (playerIsClose)
+        {
             DialogueCue.SetActive(true);
-            Debug.Log("Player is close");
         }
-        else {
+        else 
+        {
             DialogueCue.SetActive(false);
         }
 
