@@ -4,47 +4,36 @@ using System.Collections;
 
 public class DoorTeleport : MonoBehaviour
 {
-    public string sceneToLoad;  // Name of the scene to teleport to
-    public string targetDoorTag = "TeleportDoor";  // Tag of the target door in the new scene
+    public string Scene2;  // Name of the scene to teleport to
+    public string targetDoorTag = "TeleportDoor";  // Tag of the target door
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Triggered by: " + other.name);
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player entered the door trigger!");
             StartCoroutine(Teleport(other.transform));
-
-           
         }
     }
 
     private IEnumerator Teleport(Transform player)
     {
-        //// Disable player movement (if there's a movement script)
-        //PlayerController playerController = player.GetComponent<PlayerController>();
-        //if (playerController != null)
-        //{
-        //    playerController.enabled = false;
-        //}
+        // Load the new scene
+        yield return SceneManager.LoadSceneAsync(Scene2, LoadSceneMode.Single);
 
-        // Load the target scene
-        yield return SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
+        // Wait one frame to load
+        yield return null;
 
         // Find the target door in the new scene
-        GameObject targetDoor = GameObject.FindGameObjectWithTag(targetDoorTag);
-        if (targetDoor != null)
+        GameObject newTargetDoor = GameObject.FindGameObjectWithTag(targetDoorTag);
+
+        if (newTargetDoor != null)
         {
-            player.position = targetDoor.transform.position;
+            player.position = newTargetDoor.transform.position;
         }
         else
         {
-            Debug.LogWarning("No door found with tag: " + targetDoorTag);
+            Debug.LogError("Target door not found! Make sure it has the correct tag.");
         }
-
-        //// Re-enable player movement
-        //if (playerController != null)
-        //{
-        //    playerController.enabled = true;
-        //}
     }
 }
