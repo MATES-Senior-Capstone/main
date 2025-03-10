@@ -15,6 +15,17 @@ public class DialogueManager : MonoBehaviour
     public Button buttonPrefab;
     public Button ContinueButtonFab;
     public Font ChosenFont;
+    private Text newTextObject;
+    private Coroutine displayLineCoroutine;
+    private Button ContinueButton;
+    private Button ExitButton;
+    private Button choiceButton;
+    private bool continueButtonExists = false;
+    private bool exitButtonExists = false;
+    private bool choiceButtonExists = false;
+    private float TypingSpeed = 0.0025f;
+    private bool canContinueCoroutine = false;
+    
     void DialogueStart()
     {
         story = new Story(inkJSON1.text);
@@ -38,37 +49,61 @@ public class DialogueManager : MonoBehaviour
         CreateChoices();
     }
 
-    void CreateTextChunk()
+    public void CreateTextChunk()
     {
         // Create a new GameObject to hold text
         GameObject newGameObject = new GameObject("TextChunk");
         newGameObject.transform.SetParent(Canvas.transform, false);
 
-        Text newTextObject = newGameObject.AddComponent<Text>();
+        newTextObject = newGameObject.AddComponent<Text>();
         
         newTextObject.fontSize = 64;
         newTextObject.GetComponent<Text> ().font = ChosenFont;
 
         // Set the text from new story block
-        string storyText = getNextStoryBlock();
-        newTextObject.text = storyText;
-        Debug.Log("Story text: " + storyText);
+        if (displayLineCoroutine != null)
+        {
+            StopCoroutine(displayLineCoroutine);
+        }
+        displayLineCoroutine = StartCoroutine(DisplayLine(getNextStoryBlock()));
+        Debug.Log("Story text: " + newTextObject.text);
+    }
+
+    private IEnumerator DisplayLine(string line)
+    {
+        newTextObject.text = "";
+
+        canContinueCoroutine = false;
+
+        foreach (char letter in line.ToCharArray())
+        {
+            newTextObject.text += letter;
+            yield return new WaitForSeconds(TypingSpeed);
+        }
+
+        canContinueCoroutine = true;
     }
 
     void CreateContinue()
     {
-        if(story.canContinue){
+            if(story.canContinue){
             //Create a continue button from prefab
-            Button ContinueButton = Instantiate(ContinueButtonFab) as Button;
+            Button ContinueButtonPreFab = Instantiate(ContinueButtonFab) as Button;
+            ContinueButton = ContinueButtonPreFab;
             ContinueButton.transform.SetParent(Canvas.transform, false);
             ContinueButton.onClick.AddListener(delegate {OnClickContinueButton();});
-        }
-        if(!story.canContinue && story.currentChoices.Count == 0){
+            }
+
+            continueButtonExists = true;
+
+            if(!story.canContinue && story.currentChoices.Count == 0 ){
             //Prepares the exit button
-            Button ExitButton = Instantiate(ContinueButtonFab) as Button;
+            Button ExitButtonPreFab = Instantiate(ContinueButtonFab) as Button;
+            ExitButton = ExitButtonPreFab;
             ExitButton.transform.SetParent(Canvas.transform, false);
             ExitButton.onClick.AddListener(delegate {OnClickExitButton();});
-        }
+            }
+            exitButtonExists = true;
     }
 
     void CreateChoices()
@@ -78,9 +113,12 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Creating button for choice: " + choice.text);
 
             //Creates a button from prefab
-            Button choiceButton = Instantiate(buttonPrefab) as Button;
+            Button choiceButtonPreFab = Instantiate(buttonPrefab) as Button;
+            choiceButton = choiceButtonPreFab;
             choiceButton.transform.SetParent(Canvas.transform, false);
         
+            choiceButtonExists = true;
+
             //Destroys the TMP Text child that exists in all buttons
             foreach (Transform child in choiceButton.transform)
              {
@@ -101,9 +139,12 @@ public class DialogueManager : MonoBehaviour
     }
     void OnClickChoiceButton(Choice choice)
     {
-        story.ChooseChoiceIndex(choice.index);
-        story.Continue();
-        refresh();
+        if (canContinueCoroutine)
+        {
+            story.ChooseChoiceIndex(choice.index);
+            story.Continue();
+            refresh();
+        }
     }
 
     void OnClickContinueButton()
@@ -120,6 +161,9 @@ public class DialogueManager : MonoBehaviour
     }
     void clearUI()
     {
+        continueButtonExists = false;
+        exitButtonExists = false;
+        choiceButtonExists = false;
         int childCount = Canvas.transform.childCount;
         for (int i = childCount-1; i >= 0; i--)
         {
@@ -159,6 +203,36 @@ public class DialogueManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) | !playerIsClose)
         {
             clearUI();
+        }
+        if (choiceButtonExists || choiceButton != null){
+            if(!canContinueCoroutine)
+            {
+                choiceButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                choiceButton.gameObject.SetActive(true);
+            }
+        }
+        if (continueButtonExists || ContinueButton != null){
+            if(!canContinueCoroutine)
+            {
+                ContinueButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                ContinueButton.gameObject.SetActive(true);
+            }
+        }
+        if (exitButtonExists || ExitButton != null){
+            if(!canContinueCoroutine)
+            {
+                ExitButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                ExitButton.gameObject.SetActive(true);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D other){
