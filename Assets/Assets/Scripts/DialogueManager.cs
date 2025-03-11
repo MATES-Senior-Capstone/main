@@ -21,7 +21,7 @@ public class DialogueManager : MonoBehaviour
     private Button ExitButton;
     private Button choiceButton;
     private bool continueButtonExists = false;
-    private bool exitButtonExists = false;
+    private bool exitButtonExists = true;
     private bool choiceButtonExists = false;
     private float TypingSpeed = 0.0025f;
     private bool canContinueCoroutine = false;
@@ -125,6 +125,9 @@ public class DialogueManager : MonoBehaviour
             Destroy(child.gameObject);
             }
 
+            //Sets a tag so the waiting system can recongize it
+            choiceButton.tag = "ChoiceButton";
+
             // Gets the text from the button prefab
             Text choiceText = choiceButton.GetComponentInChildren<Text>();
             choiceText.text = choice.text;
@@ -161,14 +164,14 @@ public class DialogueManager : MonoBehaviour
     }
     void clearUI()
     {
-        continueButtonExists = false;
-        exitButtonExists = false;
-        choiceButtonExists = false;
         int childCount = Canvas.transform.childCount;
         for (int i = childCount-1; i >= 0; i--)
         {
             GameObject.Destroy(Canvas.transform.GetChild(i).gameObject);
         }
+        continueButtonExists = false;
+        exitButtonExists = false;
+        choiceButtonExists = false;
     }
 
 
@@ -204,17 +207,31 @@ public class DialogueManager : MonoBehaviour
         {
             clearUI();
         }
-        if (choiceButtonExists || choiceButton != null){
+        if (choiceButtonExists && choiceButton != null){
             if(!canContinueCoroutine)
-            {
-                choiceButton.gameObject.SetActive(false);
+            {   
+                foreach (Transform child in Canvas.transform)
+                {
+                    Button button = child.GetComponent<Button>();
+                    if (button != null && button.CompareTag("ChoiceButton"))
+                    {
+                     button.gameObject.SetActive(false);
+                    }
+                }
             }
             else
             {
-                choiceButton.gameObject.SetActive(true);
+                foreach (Transform child in Canvas.transform)
+                {
+                    Button button = child.GetComponent<Button>();
+                    if (button != null && button.CompareTag("ChoiceButton"))
+                    {
+                     button.gameObject.SetActive(true);
+                    }
+                }
             }
         }
-        if (continueButtonExists || ContinueButton != null){
+        if (continueButtonExists && ContinueButton != null){
             if(!canContinueCoroutine)
             {
                 ContinueButton.gameObject.SetActive(false);
@@ -224,7 +241,7 @@ public class DialogueManager : MonoBehaviour
                 ContinueButton.gameObject.SetActive(true);
             }
         }
-        if (exitButtonExists || ExitButton != null){
+        if (exitButtonExists && ExitButton != null){
             if(!canContinueCoroutine)
             {
                 ExitButton.gameObject.SetActive(false);
