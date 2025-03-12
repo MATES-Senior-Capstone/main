@@ -6,27 +6,27 @@ using Ink.Runtime;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameObject DialogueCue;
     public GameObject Canvas;
-    public bool playerIsClose;
+    public GameObject TextPanelFab;
+    public GameObject TextHolderFab;
     public TextAsset inkJSON1;
     public TextAsset inkJSON2;
     private Story story;
-    public Button buttonPrefab;
     public Button ContinueButtonFab;
-    public GameObject TextPanelFab;
-    public GameObject TextHolderFab;
+    public Button buttonPrefab;
     public Font ChosenFont;
-    private Text TextChunk;
+    public GameObject DialogueCue;
+    public bool playerIsClose;
     private Coroutine displayLineCoroutine;
+    private Text TextChunk;
     private Button ContinueButton;
     private Button ExitButton;
     private Button choiceButton;
+    private bool canContinueCoroutine = false;
+    private float TypingSpeed = 0.0025f;
     private bool continueButtonExists = false;
     private bool exitButtonExists = true;
     private bool choiceButtonExists = false;
-    private float TypingSpeed = 0.0025f;
-    private bool canContinueCoroutine = false;
     
     void DialogueStart()
     {
