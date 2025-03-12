@@ -399,7 +399,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.40182376, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1075,6 +1075,8 @@ MonoBehaviour:
   inkJSON2: {fileID: 4900000, guid: 819336a8bb5f3ca44a31f78ec8938bea, type: 3}
   buttonPrefab: {fileID: 8055445522740199123, guid: cc858089c3ab54f43a570a53d976182c, type: 3}
   ContinueButtonFab: {fileID: 7253782838006782867, guid: f1adb70b933c03541906dde564e750b7, type: 3}
+  TextPanelFab: {fileID: 7682704089784105909, guid: 449e20951c70dc8418c897f9a8beb81e, type: 3}
+  TextHolderFab: {fileID: 6496249705481685407, guid: b9b4d36749d989b4ca7a8ce8a64c35a5, type: 3}
   ChosenFont: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
 --- !u!1 &1176542078
 GameObject:

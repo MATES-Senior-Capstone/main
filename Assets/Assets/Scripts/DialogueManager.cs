@@ -14,8 +14,10 @@ public class DialogueManager : MonoBehaviour
     private Story story;
     public Button buttonPrefab;
     public Button ContinueButtonFab;
+    public GameObject TextPanelFab;
+    public GameObject TextHolderFab;
     public Font ChosenFont;
-    private Text newTextObject;
+    private Text TextChunk;
     private Coroutine displayLineCoroutine;
     private Button ContinueButton;
     private Button ExitButton;
@@ -52,13 +54,16 @@ public class DialogueManager : MonoBehaviour
     public void CreateTextChunk()
     {
         // Create a new GameObject to hold text
-        GameObject newGameObject = new GameObject("TextChunk");
-        newGameObject.transform.SetParent(Canvas.transform, false);
+        GameObject TextPanel = Instantiate(TextPanelFab) as GameObject;
+        TextPanel.transform.SetParent(Canvas.transform, false);
 
-        newTextObject = newGameObject.AddComponent<Text>();
+        GameObject TextHolder = Instantiate(TextHolderFab) as GameObject;
+        TextHolder.transform.SetParent(TextPanel.transform, false);
+
+        TextChunk = TextHolder.AddComponent<Text>();
         
-        newTextObject.fontSize = 64;
-        newTextObject.GetComponent<Text> ().font = ChosenFont;
+        TextChunk.fontSize = 64;
+        TextChunk.GetComponent<Text> ().font = ChosenFont;
 
         // Set the text from new story block
         if (displayLineCoroutine != null)
@@ -66,18 +71,18 @@ public class DialogueManager : MonoBehaviour
             StopCoroutine(displayLineCoroutine);
         }
         displayLineCoroutine = StartCoroutine(DisplayLine(getNextStoryBlock()));
-        Debug.Log("Story text: " + newTextObject.text);
+        Debug.Log("Story text: " + TextChunk.text);
     }
 
     private IEnumerator DisplayLine(string line)
     {
-        newTextObject.text = "";
+        TextChunk.text = "";
 
         canContinueCoroutine = false;
 
         foreach (char letter in line.ToCharArray())
         {
-            newTextObject.text += letter;
+            TextChunk.text += letter;
             yield return new WaitForSeconds(TypingSpeed);
         }
 
