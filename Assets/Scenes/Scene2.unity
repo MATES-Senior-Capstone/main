@@ -489,7 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbafadf8c82ba5488fa6d7d4c9ff61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene2: SampleScene
+  sceneToLoad: SampleScene
   targetDoorTag: TeleportDoor
 --- !u!61 &1528356629
 BoxCollider2D:

@@ -4,32 +4,48 @@ using System.Collections;
 
 public class DoorTeleport : MonoBehaviour
 {
-    public string Scene2;  // Name of the scene to teleport to
-    public string targetDoorTag = "TeleportDoor";  // Tag of the target door
+    public string sceneToLoad;  // The scene to load
+    public string targetDoorTag = "TeleportDoor";  // The tag of the target door in the new scene
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player entered the door trigger!");
-            StartCoroutine(Teleport(other.transform));
+            DontDestroyOnLoad(other.gameObject); // Keep the player object alive between scenes
+            StartCoroutine(Teleport(other.gameObject));
         }
     }
 
-    private IEnumerator Teleport(Transform player)
+    private IEnumerator Teleport(GameObject player)
     {
-        // Load the new scene
-        yield return SceneManager.LoadSceneAsync(Scene2, LoadSceneMode.Single);
+        // Load the new scene asynchronously
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
 
-        // Wait one frame to load
-        yield return null;
+        // Wait until the scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        yield return null; // Wait one extra frame for objects to initialize
+
+        // Find the new player object in the scene (in case it's different)
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+        {
+            Debug.LogError("Player object not found in new scene!");
+            yield break;
+        }
 
         // Find the target door in the new scene
-        GameObject newTargetDoor = GameObject.FindGameObjectWithTag(targetDoorTag);
+        GameObject targetDoor = GameObject.FindGameObjectWithTag(targetDoorTag);
 
-        if (newTargetDoor != null)
+        if (targetDoor != null)
         {
-            player.position = newTargetDoor.transform.position;
+            player.transform.position = targetDoor.transform.position; // Move player to the new door
+            Debug.Log("Teleported player to: " + player.transform.position);
         }
         else
         {
@@ -37,3 +53,4 @@ public class DoorTeleport : MonoBehaviour
         }
     }
 }
+
