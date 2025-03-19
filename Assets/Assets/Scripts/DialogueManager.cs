@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Ink.Runtime;
+using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class DialogueManager : MonoBehaviour
     public Font ChosenFont;
     public GameObject DialogueCue;
     public bool playerIsClose;
+    [SerializeField] private TextAsset loadGlobalsJSON;
+    private DialogueVariables dialogueVariables;
     private Coroutine displayLineCoroutine;
     private Text TextChunk;
     private Button ContinueButton;
@@ -27,19 +30,25 @@ public class DialogueManager : MonoBehaviour
     private bool continueButtonExists = false;
     private bool exitButtonExists = true;
     private bool choiceButtonExists = false;
-    
+
+    void Awake()
+    {
+        dialogueVariables = new DialogueVariables(loadGlobalsJSON);
+    }
     void DialogueStart()
     {
         story = new Story(inkJSON1.text);
-
+        dialogueVariables.StartListening(story);
         refresh();
 
     }
 
-    // Refresh the UI elements
-    //  – Clear any current elements
-    //  – Show any text chunks
-    //  – Iterate through any choices and create listeners on them
+    // Refresh:
+    //  Clears the UI
+    //  Shows any text 
+    //  Displays any continue buttons
+    //  Displays any choices
+    //  Adds listeners for any button
     void refresh()
     {
         clearUI();
@@ -107,6 +116,8 @@ public class DialogueManager : MonoBehaviour
             ExitButton = ExitButtonPreFab;
             ExitButton.transform.SetParent(Canvas.transform, false);
             ExitButton.onClick.AddListener(delegate {OnClickExitButton();});
+            //Story is over, so no need to keep on listening
+            dialogueVariables.StopListening(story);
             }
             exitButtonExists = true;
     }

@@ -1,3 +1,6 @@
+INCLUDE globals.ink
+{InitalJohnMATESDialogue == "" : -> Intro | -> Tail1 }
+==Intro==
 Hello I am John MATES! The creator of MATES!
 -> MATESEx
 
@@ -16,9 +19,14 @@ How much do you love MATES?
     Huzzah!
     -> TASK1
 * I hate MATES!
-    Bro why are you here?
+    Bro why are you here?{InitalJohnMATESDialogue}
     -> DONE
     
 ==TASK1==
+~ InitalJohnMATESDialogue = "true"
 Say my dear chap, why don't you do me a favor ask another MATES teacher when our PTSO meeting is?
-->DONE
+-> DONE
+
+==Tail1==
+Have you asked when the PTSO meeting is?
+-> DONE
