@@ -4,53 +4,53 @@ using System.Collections;
 
 public class DoorTeleport : MonoBehaviour
 {
-    public string sceneToLoad;  // The scene to load
-    public string targetDoorTag = "TeleportDoor";  // The tag of the target door in the new scene
+    public string sceneToLoad;  // The new scene to load
+    public Vector2 spawnPosition; // The exact position where the player will appear in the new scene
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player entered the door trigger!");
-            DontDestroyOnLoad(other.gameObject); // Keep the player object alive between scenes
             StartCoroutine(Teleport(other.gameObject));
         }
     }
 
     private IEnumerator Teleport(GameObject player)
     {
-        // Load the new scene asynchronously
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Single);
+        // Store player's current scene name
+        string currentScene = SceneManager.GetActiveScene().name;
 
-        // Wait until the scene fully loads
+        // Disable player movement to prevent actions during the transition (if applicable)
+        player.SetActive(false);
+
+        // Load the new scene asynchronously
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
+
+        // Wait until the new scene fully loads
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
 
-        yield return null; // Wait one extra frame for objects to initialize
+        // Move player to the new scene
+        SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName(sceneToLoad));
 
-        // Find the new player object in the scene (in case it's different)
-        player = GameObject.FindGameObjectWithTag("Player");
+        // Set player's position to the predetermined spawn location
+        player.transform.position = spawnPosition;
+        Debug.Log("Teleported player to: " + spawnPosition);
 
-        if (player == null)
+        // Reactivate player
+        player.SetActive(true);
+
+        // Unload the old scene
+        AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(currentScene);
+
+        while (!asyncUnload.isDone)
         {
-            Debug.LogError("Player object not found in new scene!");
-            yield break;
+            yield return null;
         }
 
-        // Find the target door in the new scene
-        GameObject targetDoor = GameObject.FindGameObjectWithTag(targetDoorTag);
-
-        if (targetDoor != null)
-        {
-            player.transform.position = targetDoor.transform.position; // Move player to the new door
-            Debug.Log("Teleported player to: " + player.transform.position);
-        }
-        else
-        {
-            Debug.LogError("Target door not found! Make sure it has the correct tag.");
-        }
+        Debug.Log("Unloaded previous scene: " + currentScene);
     }
 }
-
