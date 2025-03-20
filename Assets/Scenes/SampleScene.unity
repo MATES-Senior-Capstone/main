@@ -1107,6 +1107,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7037813335663970975, guid: 3f29ee5308b83cb41a2e3e903986e0ce, type: 3}
   m_PrefabInstance: {fileID: 4816031872315375690}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1503453346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503453348}
+  - component: {fileID: 1503453347}
+  m_Layer: 0
+  m_Name: DialogueVariablesHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1503453347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503453346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 105edf442a9f346489325488b36e734e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadGlobalsJSON: {fileID: 4900000, guid: f7359db7373efc34ca41f070b9578016, type: 3}
+--- !u!4 &1503453348
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503453346}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6331487, y: -0.42462513, z: -0.04030487}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545553449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1268,10 @@ PrefabInstance:
       propertyPath: DialogueCue
       value: 
       objectReference: {fileID: 1607772107}
+    - target: {fileID: 5481336519351493196, guid: 6f55786766e2b5b4ebdb9ac341688244, type: 3}
+      propertyPath: DialogueVariablesHolder
+      value: 
+      objectReference: {fileID: 1503453346}
     - target: {fileID: 6702671834598388608, guid: 6f55786766e2b5b4ebdb9ac341688244, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.49
@@ -1575,6 +1624,10 @@ PrefabInstance:
       propertyPath: DialogueCue
       value: 
       objectReference: {fileID: 1378793930}
+    - target: {fileID: 6863856442103215964, guid: 3abe0d089dc92024fb16775c66c1f3c1, type: 3}
+      propertyPath: DialogueVariablesHolder
+      value: 
+      objectReference: {fileID: 1503453346}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1590,6 +1643,7 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 2066042476}
   - {fileID: 1199608947}
+  - {fileID: 1503453348}
   - {fileID: 910477519}
   - {fileID: 2044346668}
   - {fileID: 1176542081}
