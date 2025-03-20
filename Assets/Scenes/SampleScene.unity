@@ -1419,7 +1419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Scene2
-  spawnPosition: {x: 17, y: 20}
+  spawnPosition: {x: 16, y: 20}
 --- !u!61 &2088585722
 BoxCollider2D:
   m_ObjectHideFlags: 0
