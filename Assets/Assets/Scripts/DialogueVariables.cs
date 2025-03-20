@@ -3,12 +3,13 @@ using UnityEngine;
 using Ink.Runtime;
 using System.IO;
 
-public class DialogueVariables
+public class DialogueVariables: MonoBehaviour
 {
     private Dictionary<string, Ink.Runtime.Object> variables;
     private Story globalVariablesStory;
+    public TextAsset loadGlobalsJSON;
 
-    public DialogueVariables(TextAsset loadGlobalsJSON)
+    void Awake()
     {
         globalVariablesStory = new Story(loadGlobalsJSON.text);
 

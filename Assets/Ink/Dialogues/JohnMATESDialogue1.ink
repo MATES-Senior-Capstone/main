@@ -16,10 +16,12 @@ It's like Hogwarts but for nerds!
 How much do you love MATES?
 
 * I love MATES!
+    ~ EmptyMood = "Happy"
     Huzzah!
     -> TASK1
 * I hate MATES!
-    Bro why are you here?{InitalJohnMATESDialogue}
+    ~ EmptyMood = "sad"
+    Bro why are you here?
     -> DONE
     
 ==TASK1==

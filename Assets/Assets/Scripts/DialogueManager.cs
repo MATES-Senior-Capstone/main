@@ -10,8 +10,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject Canvas;
     public GameObject TextPanelFab;
     public GameObject TextHolderFab;
-    public TextAsset inkJSON1;
-    public TextAsset inkJSON2;
+    public TextAsset inkJSON;
     private Story story;
     public Button ContinueButtonFab;
     public Button buttonPrefab;
@@ -20,6 +19,7 @@ public class DialogueManager : MonoBehaviour
     public bool playerIsClose;
     [SerializeField] private TextAsset loadGlobalsJSON;
     private DialogueVariables dialogueVariables;
+    public GameObject DialogueVariablesHolder;
     private Coroutine displayLineCoroutine;
     private Text TextChunk;
     private Button ContinueButton;
@@ -33,11 +33,12 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        dialogueVariables = new DialogueVariables(loadGlobalsJSON);
+        dialogueVariables = DialogueVariablesHolder.GetComponent<DialogueVariables>();
+        //dialogueVariables = new DialogueVariables(loadGlobalsJSON);
     }
     void DialogueStart()
     {
-        story = new Story(inkJSON1.text);
+        story = new Story(inkJSON.text);
         dialogueVariables.StartListening(story);
         refresh();
 
@@ -219,7 +220,7 @@ public class DialogueManager : MonoBehaviour
         {
             DialogueStart();
         }
-        if (Input.GetKeyDown(KeyCode.Q) | !playerIsClose)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             clearUI();
         }
@@ -280,6 +281,7 @@ public class DialogueManager : MonoBehaviour
     
         if (other.CompareTag("Player"))
         {
+            clearUI();
             playerIsClose = false;
         }
     }
