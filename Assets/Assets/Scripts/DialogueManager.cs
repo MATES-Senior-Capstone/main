@@ -3,94 +3,192 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Ink.Runtime;
+using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameObject DialogueCue;
     public GameObject Canvas;
-    public bool playerIsClose;
-    public TextAsset inkJSONAsset;
+    public GameObject TextPanelFab;
+    public GameObject TextHolderFab;
+    public TextAsset inkJSON;
     private Story story;
+    public Button ContinueButtonFab;
     public Button buttonPrefab;
+    public Font ChosenFont;
+    public GameObject DialogueCue;
+    public bool playerIsClose;
+    [SerializeField] private TextAsset loadGlobalsJSON;
+    private DialogueVariables dialogueVariables;
+    public GameObject DialogueVariablesHolder;
+    private Coroutine displayLineCoroutine;
+    private Text TextChunk;
+    private Button ContinueButton;
+    private Button ExitButton;
+    private Button choiceButton;
+    private bool canContinueCoroutine = false;
+    private float TypingSpeed = 0.0025f;
+    private bool continueButtonExists = false;
+    private bool exitButtonExists = true;
+    private bool choiceButtonExists = false;
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        dialogueVariables = DialogueVariablesHolder.GetComponent<DialogueVariables>();
+        //dialogueVariables = new DialogueVariables(loadGlobalsJSON);
+    }
     void DialogueStart()
     {
-        // Load the next story block
-        story = new Story(inkJSONAsset.text);
-
-        // Start the refresh cycle
+        story = new Story(inkJSON.text);
+        dialogueVariables.StartListening(story);
         refresh();
 
     }
 
-    // Refresh the UI elements
-    //  – Clear any current elements
-    //  – Show any text chunks
-    //  – Iterate through any choices and create listeners on them
+    // Refresh:
+    //  Clears the UI
+    //  Shows any text 
+    //  Displays any continue buttons
+    //  Displays any choices
+    //  Adds listeners for any button
     void refresh()
     {
-        // Clear the UI
         clearUI();
 
-        // Create a new GameObject
-        GameObject newGameObject = new GameObject("TextChunk");
-        // Set its transform to the Canvas (this)
-        newGameObject.transform.SetParent(Canvas.transform, false);
+        CreateTextChunk();
 
-        // Add a new Text component to the new GameObject
-        Text newTextObject = newGameObject.AddComponent<Text>();
-        // Set the fontSize larger
-        newTextObject.fontSize = 64;
+        CreateContinue();
+        
+        CreateChoices();
+    }
 
-        newTextObject.GetComponent<Text> ().font = Resources.GetBuiltinResource(typeof(Font), "LegacyRuntime.ttf") as Font;
+    public void CreateTextChunk()
+    {
+        // Create a new GameObject to hold text
+        GameObject TextPanel = Instantiate(TextPanelFab) as GameObject;
+        TextPanel.transform.SetParent(Canvas.transform, false);
+
+        GameObject TextHolder = Instantiate(TextHolderFab) as GameObject;
+        TextHolder.transform.SetParent(TextPanel.transform, false);
+
+        TextChunk = TextHolder.AddComponent<Text>();
+        
+        TextChunk.fontSize = 64;
+        TextChunk.GetComponent<Text> ().font = ChosenFont;
 
         // Set the text from new story block
-        newTextObject.text = getNextStoryBlock();
-        Debug.Log("Story text: " + getNextStoryBlock());
-        // Load Arial from the built-in resources
-        
+        if (displayLineCoroutine != null)
+        {
+            StopCoroutine(displayLineCoroutine);
+        }
+        displayLineCoroutine = StartCoroutine(DisplayLine(getNextStoryBlock()));
+        Debug.Log("Story text: " + TextChunk.text);
+    }
 
+    private IEnumerator DisplayLine(string line)
+    {
+        TextChunk.text = "";
+
+        canContinueCoroutine = false;
+
+        foreach (char letter in line.ToCharArray())
+        {
+            TextChunk.text += letter;
+            yield return new WaitForSeconds(TypingSpeed);
+        }
+
+        canContinueCoroutine = true;
+    }
+
+    void CreateContinue()
+    {
+            if(story.canContinue){
+            //Create a continue button from prefab
+            Button ContinueButtonPreFab = Instantiate(ContinueButtonFab) as Button;
+            ContinueButton = ContinueButtonPreFab;
+            ContinueButton.transform.SetParent(Canvas.transform, false);
+            ContinueButton.onClick.AddListener(delegate {OnClickContinueButton();});
+            }
+
+            continueButtonExists = true;
+
+            if(!story.canContinue && story.currentChoices.Count == 0 ){
+            //Prepares the exit button
+            Button ExitButtonPreFab = Instantiate(ContinueButtonFab) as Button;
+            ExitButton = ExitButtonPreFab;
+            ExitButton.transform.SetParent(Canvas.transform, false);
+            ExitButton.onClick.AddListener(delegate {OnClickExitButton();});
+            //Story is over, so no need to keep on listening
+            dialogueVariables.StopListening(story);
+            }
+            exitButtonExists = true;
+    }
+
+    void CreateChoices()
+    {
         foreach (Choice choice in story.currentChoices)
         {
             Debug.Log("Creating button for choice: " + choice.text);
-            Button choiceButton = Instantiate(buttonPrefab) as Button;
+
+            //Creates a button from prefab
+            Button choiceButtonPreFab = Instantiate(buttonPrefab) as Button;
+            choiceButton = choiceButtonPreFab;
             choiceButton.transform.SetParent(Canvas.transform, false);
+        
+            choiceButtonExists = true;
+
+            //Destroys the TMP Text child that exists in all buttons
+            foreach (Transform child in choiceButton.transform)
+             {
+            Destroy(child.gameObject);
+            }
+
+            //Sets a tag so the waiting system can recongize it
+            choiceButton.tag = "ChoiceButton";
 
             // Gets the text from the button prefab
             Text choiceText = choiceButton.GetComponentInChildren<Text>();
             choiceText.text = choice.text;
             choiceText.fontSize = 64;
+            choiceText.font = ChosenFont;
 
-            // Set listener
-            choiceButton.onClick.AddListener(delegate {
-                OnClickChoiceButton(choice);
-            });
-            foreach (Transform child in choiceButton.transform)
-             {
-        Destroy(child.gameObject);
-        }
+            // Sets listener for choices
+            choiceButton.onClick.AddListener(delegate {OnClickChoiceButton(choice);});
+            
         }
         Debug.Log("Total choices: " + story.currentChoices.Count);
     }
-
-    // When we click the choice button, tell the story to choose that choice!
     void OnClickChoiceButton(Choice choice)
     {
-        story.ChooseChoiceIndex(choice.index);
-        story.Continue();
-        refresh();
-
+        if (canContinueCoroutine)
+        {
+            story.ChooseChoiceIndex(choice.index);
+            story.Continue();
+            refresh();
+        }
     }
 
-    // Clear out all of the UI, calling Destory() in reverse
+    void OnClickContinueButton()
+    {
+        if (story.canContinue)
+        {
+            refresh();
+        }
+    }
+
+    void OnClickExitButton()
+    {
+        clearUI();
+    }
     void clearUI()
     {
         int childCount = Canvas.transform.childCount;
-        for (int i = childCount - 1; i >= 0; i--)
+        for (int i = childCount-1; i >= 0; i--)
         {
             GameObject.Destroy(Canvas.transform.GetChild(i).gameObject);
         }
+        continueButtonExists = false;
+        exitButtonExists = false;
+        choiceButtonExists = false;
     }
 
 
@@ -107,14 +205,14 @@ public class DialogueManager : MonoBehaviour
         return text;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (playerIsClose){
+        if (playerIsClose)
+        {
             DialogueCue.SetActive(true);
-            Debug.Log("Player is close");
         }
-        else {
+        else 
+        {
             DialogueCue.SetActive(false);
         }
 
@@ -122,9 +220,53 @@ public class DialogueManager : MonoBehaviour
         {
             DialogueStart();
         }
-        if (Input.GetKeyDown(KeyCode.Q) | !playerIsClose)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             clearUI();
+        }
+        if (choiceButtonExists && choiceButton != null){
+            if(!canContinueCoroutine)
+            {   
+                foreach (Transform child in Canvas.transform)
+                {
+                    Button button = child.GetComponent<Button>();
+                    if (button != null && button.CompareTag("ChoiceButton"))
+                    {
+                     button.gameObject.SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Transform child in Canvas.transform)
+                {
+                    Button button = child.GetComponent<Button>();
+                    if (button != null && button.CompareTag("ChoiceButton"))
+                    {
+                     button.gameObject.SetActive(true);
+                    }
+                }
+            }
+        }
+        if (continueButtonExists && ContinueButton != null){
+            if(!canContinueCoroutine)
+            {
+                ContinueButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                ContinueButton.gameObject.SetActive(true);
+            }
+        }
+        if (exitButtonExists && ExitButton != null){
+            if(!canContinueCoroutine)
+            {
+                ExitButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                ExitButton.gameObject.SetActive(true);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D other){
@@ -139,6 +281,7 @@ public class DialogueManager : MonoBehaviour
     
         if (other.CompareTag("Player"))
         {
+            clearUI();
             playerIsClose = false;
         }
     }

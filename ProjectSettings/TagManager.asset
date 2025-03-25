@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - TeleportDoor
+  - ChoiceButton
   layers:
   - Default
   - TransparentFX
