@@ -1,0 +1,2 @@
+VAR InitalJohnMATESDialogue = ""
+VAR EmptyMood = ""
