@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 77450605}
   - component: {fileID: 77450604}
   - component: {fileID: 77450603}
-  - component: {fileID: 77450602}
   - component: {fileID: 77450601}
   m_Layer: 0
   m_Name: Main Camera (1)
@@ -150,18 +149,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 639a28ab24ab0e04982cc906085501ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &77450602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 77450600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &77450603
@@ -276,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 77450600}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 20, z: -10}
+  m_LocalPosition: {x: -3.2185936, y: 20, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -539,7 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbafadf8c82ba5488fa6d7d4c9ff61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Scene1
+  sceneToLoad: SampleScene
   spawnPosition: {x: 16, y: 0}
   fadeImage: {fileID: 928868941}
   fadeDuration: 1
