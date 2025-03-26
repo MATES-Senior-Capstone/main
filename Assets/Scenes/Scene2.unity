@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639a28ab24ab0e04982cc906085501ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetFrameRate: 60
 --- !u!114 &77450603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,7 +528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: SampleScene
-  spawnPosition: {x: 16, y: 0}
+  spawnPosition: {x: 12, y: 0}
   fadeImage: {fileID: 928868941}
   fadeDuration: 1
 --- !u!61 &1528356629
