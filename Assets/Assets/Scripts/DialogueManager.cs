@@ -72,7 +72,7 @@ public class DialogueManager : MonoBehaviour
 
         TextChunk = TextHolder.AddComponent<Text>();
         
-        TextChunk.fontSize = 64;
+        TextChunk.fontSize = 76;
         TextChunk.GetComponent<Text> ().font = ChosenFont;
 
         // Set the text from new story block
