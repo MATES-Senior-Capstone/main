@@ -2283,8 +2283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbafadf8c82ba5488fa6d7d4c9ff61f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Scene2
-  spawnPosition: {x: 17, y: 20}
+  sceneToLoad: Hallway.Tutorial
+  spawnPosition: {x: 17, y: 19}
   fadeImage: {fileID: 1685687154}
   fadeDuration: 1
 --- !u!61 &1097352029
