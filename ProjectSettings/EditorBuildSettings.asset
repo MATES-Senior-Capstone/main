@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/startscene.unity
     guid: 5d72ba8fea0e8c942832cf0c523049e7
   - enabled: 1
-    path: Assets/Scenes/BixlerRoom.unity
+    path: Assets/Scenes/SampleScene.unity
     guid: 4275a949447c0a54aaea856c6f658e1d
   - enabled: 1
     path: Assets/Scenes/Hallway.Tutorial.unity
