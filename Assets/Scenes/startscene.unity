@@ -630,6 +630,7 @@ GameObject:
   - component: {fileID: 910477521}
   - component: {fileID: 910477520}
   - component: {fileID: 910477522}
+  - component: {fileID: 910477523}
   m_Layer: 0
   m_Name: John Square
   m_TagString: Player
@@ -793,6 +794,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &910477523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910477517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 105edf442a9f346489325488b36e734e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadGlobalsJSON: {fileID: 4900000, guid: f7359db7373efc34ca41f070b9578016, type: 3}
 --- !u!1 &958333375
 GameObject:
   m_ObjectHideFlags: 0
