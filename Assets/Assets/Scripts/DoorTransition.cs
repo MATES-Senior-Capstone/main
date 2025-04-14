@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class DoorTeleport : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class DoorTeleport : MonoBehaviour
     public Vector2 spawnPosition; // Exact position where player will appear
     public Image fadeImage; // UI Image for fade effect
     public float fadeDuration = 1f; // Duration of the fade effect
-
     private bool playerInDoorZone = false;
     private GameObject player;
 
@@ -45,9 +45,9 @@ public class DoorTeleport : MonoBehaviour
         if (player == null) yield break;
 
         string currentScene = SceneManager.GetActiveScene().name;
-        player.SetActive(false); // Temporarily disable player
 
         yield return StartCoroutine(FadeToBlack()); // Fade out before teleporting
+        player.SetActive(false); // Temporarily disable player
 
         // Load the new scene
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad, LoadSceneMode.Additive);
@@ -61,11 +61,11 @@ public class DoorTeleport : MonoBehaviour
         player.transform.position = spawnPosition;
         Debug.Log("Teleported player to: " + spawnPosition);
 
-        yield return new WaitForSeconds(0.2f); // Small delay before fading back in
+        player.SetActive(true); // Reactivate player
+
+        yield return new WaitForSeconds(0.75f); // Small delay before fading back in
 
         yield return StartCoroutine(FadeFromBlack()); // Fade in after teleporting
-
-        player.SetActive(true); // Reactivate player
 
         // Unload the previous scene
         AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(currentScene);
@@ -113,4 +113,3 @@ public class DoorTeleport : MonoBehaviour
         fadeImage.color = color;
     }
 }
-
