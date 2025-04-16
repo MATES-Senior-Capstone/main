@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     public bool playerIsClose;
     [SerializeField] private TextAsset loadGlobalsJSON;
     private DialogueVariables dialogueVariables;
-    public GameObject DialogueVariablesHolder;
+    public GameObject Player;
     private Coroutine displayLineCoroutine;
     private Text TextChunk;
     private Button ContinueButton;
@@ -33,8 +33,7 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        dialogueVariables = DialogueVariablesHolder.GetComponent<DialogueVariables>();
-        //dialogueVariables = new DialogueVariables(loadGlobalsJSON);
+        
     }
     void DialogueStart()
     {
@@ -207,6 +206,15 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
+        if (Player == null)
+        {
+            Player = GameObject.FindWithTag("Player");
+            if (Player != null)
+            {
+                dialogueVariables = Player.GetComponent<DialogueVariables>();
+            }
+        }
+
         if (playerIsClose)
         {
             DialogueCue.SetActive(true);
