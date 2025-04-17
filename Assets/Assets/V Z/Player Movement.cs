@@ -7,6 +7,10 @@ public class NewMonoBehaviourScript : MonoBehaviour
    float vertical;
    float moveLimiter = 0.7f;
 
+   public Animator animator;
+
+   Vector2 movement;
+
    public float runSpeed = 20.0f;
 
    void Start()
@@ -19,6 +23,10 @@ public class NewMonoBehaviourScript : MonoBehaviour
     //fluxes between -1 and 1
     horizontal = Input.GetAxisRaw("Horizontal"); // -1 is to left
     vertical = Input.GetAxisRaw("Vertical"); // -1 is down
+
+    animator.SetFloat("horizontal", movement.x);
+    animator.SetFloat("vertical", movement.y);
+    animator.SetFloat("speed", movement.sqrMagnitude);
    }
 
    void FixedUpdate()
