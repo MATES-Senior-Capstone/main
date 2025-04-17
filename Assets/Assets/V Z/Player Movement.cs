@@ -29,6 +29,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
     animator.SetFloat("horizontal", movement.x);
     animator.SetFloat("vertical", movement.y);
     animator.SetFloat("speed", movement.sqrMagnitude);
+
+    if (movement != Vector2.zero) { //if player is moving
+        animator.SetFloat("lastHoriz", movement.x); //remember horizontal direction
+        animator.SetFloat("lastVert", movement.y); //remember vertical direction
+    }
    }
 
    void FixedUpdate()
