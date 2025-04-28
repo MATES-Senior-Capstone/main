@@ -4477,7 +4477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Hallway.Up
-  spawnPosition: {x: -6, y: 31}
+  spawnPosition: {x: 44, y: 16}
   fadeImage: {fileID: 627568}
   fadeDuration: 1
 --- !u!61 &531014677
@@ -4798,7 +4798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Hallway.Up
-  spawnPosition: {x: 36, y: 60}
+  spawnPosition: {x: 86, y: 45}
   fadeImage: {fileID: 627568}
   fadeDuration: 1
 --- !u!61 &1025232853
@@ -4949,7 +4949,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Hallway.Up
-  spawnPosition: {x: 6.5, y: 12.3}
+  spawnPosition: {x: 56.5, y: -3}
   fadeImage: {fileID: 627568}
   fadeDuration: 1
 --- !u!61 &1383661151
