@@ -3,23 +3,17 @@ using UnityEngine;
 public class MenuPanelControl : MonoBehaviour
 {
     public GameObject MenuPanel;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        MenuPanel.SetActive(false);
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && MenuPanel.IsActive(False))
+        if (Input.GetKeyDown(KeyCode.Q) && MenuPanel.activeSelf == false)
         {
-            MenuPanel.SetActive(true);
+            MenuPanel.gameObject.SetActive(true);
+            Debug.Log("MenuPanel is active");
         }
-        else if (Input.GetKeyDown(KeyCode.Q) && MenuPanel.IsActive(True))
+        else if (Input.GetKeyDown(KeyCode.Q) && MenuPanel.activeSelf == true)
         {
-            MenuPanel.SetActive(false);
+            MenuPanel.gameObject.SetActive(false);
+            Debug.Log("MenuPanel is inactive");
         }
     }
 }
