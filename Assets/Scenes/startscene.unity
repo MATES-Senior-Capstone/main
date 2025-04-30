@@ -402,6 +402,7 @@ GameObject:
   - component: {fileID: 327882209}
   - component: {fileID: 327882211}
   - component: {fileID: 327882210}
+  - component: {fileID: 327882212}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -466,12 +467,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 327882208}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &437351805
 GameObject:
+=======
+--- !u!95 &327882212
+Animator:
+  serializedVersion: 7
+>>>>>>> walky-walky-talky-talky
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<< HEAD
   serializedVersion: 6
   m_Component:
   - component: {fileID: 437351807}
@@ -541,6 +549,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+  m_GameObject: {fileID: 327882208}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bcdd3479669253343877a565fce05b25, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+>>>>>>> walky-walky-talky-talky
 --- !u!1 &546127505
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,7 +782,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -535687431, guid: b59ee753dd1477a4f9246b69e29c5f55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -795,6 +820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5e1e3727172d7428951829795482c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 910477523}
   runSpeed: 5
 --- !u!50 &910477521
 Rigidbody2D:
@@ -861,7 +887,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -869,19 +895,41 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+<<<<<<< HEAD
 --- !u!114 &910477523
 MonoBehaviour:
+=======
+--- !u!95 &910477523
+Animator:
+  serializedVersion: 7
+>>>>>>> walky-walky-talky-talky
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910477517}
   m_Enabled: 1
+<<<<<<< HEAD
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 105edf442a9f346489325488b36e734e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   loadGlobalsJSON: {fileID: 4900000, guid: f7359db7373efc34ca41f070b9578016, type: 3}
+=======
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 98931e6a714fa0c4ab93116217b2863d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+>>>>>>> walky-walky-talky-talky
 --- !u!1 &958333375
 GameObject:
   m_ObjectHideFlags: 0
