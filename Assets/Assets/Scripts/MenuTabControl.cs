@@ -14,10 +14,14 @@ public class MenuTabControl : MonoBehaviour
     {
         for (int i = 0; i < Pages.Length; i++)
         {
+            Debug.Log("Deactivated tabs");
             Pages[i].SetActive(false);
             Tabs[i].color = Color.grey;
+            Debug.Log("Deactivated tabs");
         }
+        Debug.Log("Activated tabs");
         Pages[NumTabs].SetActive(true);
         Tabs[NumTabs].color = Color.white;
+        Debug.Log("Activated tabs");
     }
 }
