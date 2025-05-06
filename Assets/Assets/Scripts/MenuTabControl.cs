@@ -5,10 +5,12 @@ public class MenuTabControl : MonoBehaviour
 {
     public Image [] Tabs;
     public GameObject [] Pages;
+
     void Start()
     {
         ActivateTab(0);
     }
+
 
    public void ActivateTab(int NumTabs)
     {
