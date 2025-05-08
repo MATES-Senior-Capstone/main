@@ -5,6 +5,7 @@ public class MenuTabControl : MonoBehaviour
 {
     public Image [] Tabs;
     public GameObject [] Pages;
+    public GameObject QuestsText;
 
     void Start()
     {
@@ -23,6 +24,15 @@ public class MenuTabControl : MonoBehaviour
         }
         Debug.Log("Activated tabs");
         Pages[NumTabs].SetActive(true);
+        //triggers the text to update
+        if (NumTabs == 1) 
+        {
+            QuestsText.SetActive(true);
+        }
+        else
+        {
+            QuestsText.SetActive(false);
+        }
         Tabs[NumTabs].color = Color.white;
         Debug.Log("Activated tabs");
     }

@@ -14,7 +14,6 @@ public class QuestsScript : MonoBehaviour
     [SerializeField] private TextAsset loadGlobalsJSON;
     private DialogueVariables dialogueVariables;
     public GameObject QuestText;
-
     public GameObject MenuPanel;
 
     void OnEnable()
@@ -27,7 +26,9 @@ public class QuestsScript : MonoBehaviour
             Debug.Log("Story is set");
             //dialogueVariables.StartListening(story);
             Debug.Log("Houston we are listening");
-            QuestText.GetComponent<Text>().text = story.Continue();
+            string text = story.Continue();
+            Debug.Log("QuestText is set to " + text);
+            QuestText.GetComponent<Text>().text = text;
             Debug.Log("QuestText is set");
         }
     }
