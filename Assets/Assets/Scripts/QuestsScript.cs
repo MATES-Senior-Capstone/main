@@ -15,21 +15,31 @@ public class QuestsScript : MonoBehaviour
     private DialogueVariables dialogueVariables;
     public GameObject QuestText;
     public GameObject MenuPanel;
+    public GameObject Player;
 
     void OnEnable()
     {
         Debug.Log("QuestsScript is enabled");
         if (MenuPanel.activeSelf == true)
         {
+            if (Player == null)
+            {
+                Player = GameObject.FindWithTag("Player");
+                if (Player != null)
+                {
+                dialogueVariables = Player.GetComponent<DialogueVariables>();
+                }
+            }
             Debug.Log("Q2 is enabled");
             story = new Story(inkJSON.text);
             Debug.Log("Story is set");
-            //dialogueVariables.StartListening(story);
+            dialogueVariables.StartListening(story);
             Debug.Log("Houston we are listening");
             string text = story.Continue();
             Debug.Log("QuestText is set to " + text);
             QuestText.GetComponent<Text>().text = text;
             Debug.Log("QuestText is set");
+            dialogueVariables.StopListening(story);
         }
     }
 }

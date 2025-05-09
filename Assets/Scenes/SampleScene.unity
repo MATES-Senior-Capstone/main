@@ -10444,8 +10444,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: 56}
-  m_SizeDelta: {x: 904.267, y: 290.364}
+  m_AnchoredPosition: {x: 106.152, y: 2.5692}
+  m_SizeDelta: {x: 1520.173, y: 411.8643}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2069770213
 MonoBehaviour:
@@ -10463,6 +10463,7 @@ MonoBehaviour:
   loadGlobalsJSON: {fileID: 4900000, guid: f7359db7373efc34ca41f070b9578016, type: 3}
   QuestText: {fileID: 2069770211}
   MenuPanel: {fileID: 1379167761}
+  Player: {fileID: 0}
 --- !u!222 &2069770215
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10493,10 +10494,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 652f7165b7c30ab46af6c4aad90a639b, type: 2}
-    m_FontSize: 16
+    m_FontSize: 75
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 0
     m_MaxSize: 140
     m_Alignment: 0
     m_AlignByGeometry: 0
