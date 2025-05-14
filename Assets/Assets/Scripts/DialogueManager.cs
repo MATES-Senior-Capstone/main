@@ -31,10 +31,6 @@ public class DialogueManager : MonoBehaviour
     private bool exitButtonExists = true;
     private bool choiceButtonExists = false;
 
-    void Awake()
-    {
-        
-    }
     void DialogueStart()
     {
         story = new Story(inkJSON.text);
