@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TeleportDoor
   - ChoiceButton
+  - CmCamera
   layers:
   - Default
   - TransparentFX
