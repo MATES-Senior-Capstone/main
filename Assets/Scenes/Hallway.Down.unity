@@ -4868,7 +4868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Hallway.Up
-  spawnPosition: {x: -6, y: 31}
+  spawnPosition: {x: -6, y: 21}
   fadeImage: {fileID: 627568}
   fadeDuration: 1
 --- !u!61 &531014677
@@ -5119,7 +5119,7 @@ Transform:
   m_GameObject: {fileID: 845696540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: -10, z: -10}
+  m_LocalPosition: {x: -17.506329, y: 4.1500034, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5340,7 +5340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Hallway.Up
-  spawnPosition: {x: 36, y: 60}
+  spawnPosition: {x: 36, y: 50}
   fadeImage: {fileID: 627568}
   fadeDuration: 1
 --- !u!61 &1025232853
@@ -5642,7 +5642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Hallway.Up
-  spawnPosition: {x: 6.5, y: 12.3}
+  spawnPosition: {x: 6.5, y: 2.3}
   fadeImage: {fileID: 627568}
   fadeDuration: 1
 --- !u!61 &1383661151
