@@ -6706,6 +6706,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6933768571471168471, guid: 6f55786766e2b5b4ebdb9ac341688244, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10336,7 +10340,7 @@ GameObject:
   - component: {fileID: 2066042477}
   - component: {fileID: 2066042478}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvasw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10811,6 +10815,14 @@ PrefabInstance:
     - target: {fileID: 3210784603772001322, guid: 3abe0d089dc92024fb16775c66c1f3c1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023399851868199388, guid: 3abe0d089dc92024fb16775c66c1f3c1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5605427806677478829, guid: 3abe0d089dc92024fb16775c66c1f3c1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6863856442103215964, guid: 3abe0d089dc92024fb16775c66c1f3c1, type: 3}
       propertyPath: Canvas
