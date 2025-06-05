@@ -309,7 +309,7 @@ Transform:
   m_GameObject: {fileID: 157955061}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.964869, y: 4.1500034, z: -10}
+  m_LocalPosition: {x: -4.5363297, y: -4.005724, z: -22.964588}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -656,6 +656,7 @@ GameObject:
   - component: {fileID: 910477523}
   - component: {fileID: 910477525}
   - component: {fileID: 910477524}
+  - component: {fileID: 910477526}
   m_Layer: 0
   m_Name: John Square
   m_TagString: Player
@@ -869,6 +870,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ad64733fc3b56946a441e2fb2fc609a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questAccepted: 0
+  questCompleted: 0
+--- !u!114 &910477526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910477517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e753decead114148b68e03132c3acd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   questAccepted: 0
