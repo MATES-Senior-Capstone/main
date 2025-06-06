@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TableInteraction : MonoBehaviour
 {
-    public GameObject interactionPrompt;
+    //public GameObject interactionPrompt;
 
     private bool playerInRange;
 
@@ -33,7 +33,7 @@ public class TableInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            interactionPrompt?.SetActive(true);
+            //interactionPrompt?.SetActive(true);
         }
     }
 
@@ -42,7 +42,7 @@ public class TableInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            interactionPrompt?.SetActive(false);
+            //interactionPrompt?.SetActive(false);
         }
     }
 }

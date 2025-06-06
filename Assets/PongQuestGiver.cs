@@ -2,27 +2,27 @@ using UnityEngine;
 
 public class PongQuestGiver : MonoBehaviour
 {
-    public GameObject questPopupUI;
-
     private bool playerInRange;
 
     void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            PongQuestManager.Instance.questAccepted = true;
-            questPopupUI.SetActive(true); // Optional UI: “Try to rally the ball 10 times!”
+            if (!PongQuestManager.Instance.questAccepted)
+            {
+                PongQuestManager.Instance.questAccepted = true;
+                Debug.Log("Quest Accepted: Get a rally of 10 in Pong!");
+            }
+            else
+            {
+                Debug.Log("You already accepted the quest.");
+            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player")) playerInRange = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player")) playerInRange = false;
-        questPopupUI.SetActive(false);
+        if (other.CompareTag("Player"))
+            playerInRange = true;
     }
 }

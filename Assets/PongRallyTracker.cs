@@ -1,16 +1,27 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PongRallyTracker : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public int rallyTarget = 10;
+    private int rallyCount = 0;
+
+    public void BallBounced()
     {
-        
+        rallyCount++;
+        Debug.Log("Rally: " + rallyCount);
+
+        if (rallyCount >= rallyTarget)
+        {
+            Debug.Log("Quest Complete!");
+            PongQuestManager.Instance.CompleteQuest();
+            SceneManager.LoadScene("Gymnasium"); // Change to your main scene name
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BallMissed()
     {
-        
+        rallyCount = 0;
+        Debug.Log("Missed. Rally reset.");
     }
 }

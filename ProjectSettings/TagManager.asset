@@ -7,6 +7,9 @@ TagManager:
   - TeleportDoor
   - ChoiceButton
   - CmCamera
+  - Paddle
+  - Wall
+  - MissZone
   layers:
   - Default
   - TransparentFX
