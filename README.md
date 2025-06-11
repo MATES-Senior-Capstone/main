@@ -28,7 +28,7 @@ We created MATES 2D as a love letter to our school and a commemoration of our ti
 
 ---
 
-## 🗺️ Features & Functionality
+## Features & Functionality
 
 - ✅ Player movement in 8 directions
 - ✅ Scene transitions and interactable environments
